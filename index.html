@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentación Completa - Hospital del Norte</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: #f8fafc;
+            scroll-behavior: smooth;
+        }
+        body {
+            overflow-y: auto;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .navbar a {
+            font-weight: 600;
+            color: #0284c7;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            transition: background 0.2s, color 0.2s;
+        }
+        .navbar a:hover, .navbar a.active {
+            background: #e0f2fe;
+            color: #0e7490;
+        }
+        .section {
+            padding-top: 80px;
+            margin-bottom: 40px;
+        }
+        .slide-container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            min-height: 720px;
+            position: relative;
+            background-color: #f8fafc;
+        }
+        .header-bar {
+            height: 12px;
+            background-color: #0284c7;
+        }
+        .footer-bar {
+            height: 12px;
+            background-color: #10b981;
+        }
+        .hospital-icon {
+            font-size: 4rem;
+            color: #0284c7;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+        }
+        .stat-card {
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-4px);
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+        .flow-step {
+            position: relative;
+            transition: transform 0.2s;
+        }
+        .flow-step:hover {
+            transform: translateY(-3px);
+        }
+        @media (max-width: 768px) {
+            .navbar a { padding: 0.5rem 0.7rem; font-size: 0.95rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar flex justify-center items-center py-2 space-x-2">
+        <a href="#portada">Portada</a>
+        <a href="#resumen">Resumen</a>
+        <a href="#captacion">Captación</a>
+        <a href="#circuito">Circuito</a>
+        <a href="#atencion">Atención</a>
+        <a href="#laboratorio">Laboratorio</a>
+        <a href="#interconsultas">Interconsultas</a>
+        <a href="#examenes">Exámenes</a>
+        <a href="#conclusiones">Conclusiones</a>
+    </nav>
+    <div style="height:56px;"></div>
+    
+    <!-- Portada -->
+    <section id="portada" class="section">
+        <div class="slide-container flex flex-col">
+            <!-- Barra superior -->
+            <div class="header-bar w-full"></div>
+            
+            <!-- Contenido principal -->
+            <div class="flex-grow flex flex-col items-center justify-center px-20 py-10 bg-white">
+                <div class="text-center mb-8">
+                    <i class="fas fa-hospital hospital-icon mb-4"></i>
+                    <h1 class="text-5xl font-bold text-gray-800 mb-6">Informe de Pacientes Crónicos</h1>
+                    <h2 class="text-4xl font-semibold text-blue-600 mb-8">Hospital del Norte 2025</h2>
+                    
+                    <div class="w-32 h-1 bg-green-500 mx-auto my-8"></div>
+                    
+                    <p class="text-2xl font-medium text-gray-600">
+                        Período: 10 de marzo al 10 de junio de 2025
+                    </p>
+                    
+                    <div class="mt-10 text-xl text-gray-600">
+                        <p>Análisis estadístico, captación y atención de pacientes</p>
+                        <p>con patologías crónicas (HTA y/o DBT)</p>
+                    </div>
+                </div>
+                
+                <div class="absolute bottom-16 right-20">
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 rounded-full bg-blue-600 mr-2"></div>
+                        <span class="text-blue-600 font-semibold">HTA: Hipertensión Arterial</span>
+                    </div>
+                    <div class="flex items-center mt-2">
+                        <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                        <span class="text-green-500 font-semibold">DBT: Diabetes</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bar w-full"></div>
+        </div>
+    </section>
+    
+    <!-- Resumen Ejecutivo -->
+    <section id="resumen" class="section">
+        <div class="slide-container flex flex-col">
+            <!-- Barra superior -->
+            <div class="header-bar w-full"></div>
+            
+            <!-- Contenido principal -->
+            <div class="flex-grow px-16 py-10 bg-white">
+                <!-- Título -->
+                <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                    <h1 class="text-4xl font-bold text-gray-800">Resumen Ejecutivo</h1>
+                    <p class="text-xl text-blue-600">Período: 10 de marzo al 10 de junio de 2025</p>
+                </div>
+                
+                <!-- Contenido dividido en dos columnas -->
+                <div class="flex">
+                    <!-- Columna izquierda: Texto -->
+                    <div class="w-1/2 pr-8">
+                        <div class="mb-6">
+                            <p class="text-lg mb-4">En <span class="font-bold text-blue-600">63 días hábiles</span>, los agentes sanitarios del Hospital del Norte captaron <span class="font-bold text-blue-600">242 pacientes</span> con patologías crónicas:</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li class="text-lg">120 pacientes con Hipertensión Arterial (HTA)</li>
+                                <li class="text-lg">46 pacientes con Diabetes (DBT)</li>
+                                <li class="text-lg">68 pacientes con ambas patologías (HTA + DBT)</li>
+                                <li class="text-lg">8 casos nuevos a confirmar</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <p class="text-lg mb-2">Se realizaron las siguientes actividades:</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fas fa-calendar-check text-green-500 mr-2"></i>
+                                    <span>Asignación de turnos médicos</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-flask text-green-500 mr-2"></i>
+                                    <span>Gestión de estudios de laboratorio</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-hospital text-green-500 mr-2"></i>
+                                    <span>Trabajo interinstitucional con Hospital Ramón Carrillo</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-user-md text-green-500 mr-2"></i>
+                                    <span>Derivaciones a especialistas</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna derecha: Gráfico -->
+                    <div class="w-1/2">
+                        <div class="chart-container border rounded-lg p-4 shadow-lg" style="height: 320px;">
+                            <canvas id="patologiasChart1"></canvas>
+                        </div>
+                        <div class="mt-4 text-center text-gray-600 text-sm">
+                            <p><strong>Gráfico 1:</strong> Distribución de pacientes según patología crónica</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Nota al pie -->
+                <div class="mt-6 text-sm text-gray-500 italic">
+                    <p>* El Hospital del Norte continúa su compromiso con la atención, seguimiento y control de pacientes con patologías crónicas a través de un sistema de captación y derivación eficiente.</p>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bar w-full"></div>
+        </div>
+    </section>
+    
+    <!-- Captación de Pacientes -->
+    <section id="captacion" class="section">
+        <div class="slide-container flex flex-col">
+            <!-- Barra superior -->
+            <div class="header-bar w-full"></div>
+            
+            <!-- Contenido principal -->
+            <div class="flex-grow px-16 py-10 bg-white">
+                <!-- Título -->
+                <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                    <h1 class="text-4xl font-bold text-gray-800">Captación de Pacientes por Patología</h1>
+                    <p class="text-xl text-blue-600">Total: 242 pacientes captados</p>
+                </div>
+                
+                <!-- Contenido dividido en dos columnas -->
+                <div class="flex">
+                    <!-- Columna izquierda: Texto y estadísticas -->
+                    <div class="w-1/2 pr-8">
+                        <div class="mb-6">
+                            <p class="text-lg mb-4">Durante el período del 10 de marzo al 10 de junio de 2025, los agentes sanitarios del Hospital del Norte identificaron y clasificaron a los pacientes según su patología crónica:</p>
+                        </div>
+                        
+                        <!-- Tarjetas de estadísticas -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="stat-card p-4 bg-blue-50 border border-blue-200 shadow-sm">
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 rounded-full bg-blue-600 mr-2"></div>
+                                    <h3 class="font-bold">Hipertensión Arterial</h3>
+                                </div>
+                                <div class="mt-2">
+                                    <p class="text-3xl font-bold text-blue-600">120</p>
+                                    <p class="text-sm text-gray-600">pacientes (49.6%)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card p-4 bg-green-50 border border-green-200 shadow-sm">
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+                                    <h3 class="font-bold">Diabetes</h3>
+                                </div>
+                                <div class="mt-2">
+                                    <p class="text-3xl font-bold text-green-500">46</p>
+                                    <p class="text-sm text-gray-600">pacientes (19.0%)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card p-4 bg-indigo-50 border border-indigo-200 shadow-sm">
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 rounded-full bg-indigo-600 mr-2"></div>
+                                    <h3 class="font-bold">HTA + DBT</h3>
+                                </div>
+                                <div class="mt-2">
+                                    <p class="text-3xl font-bold text-indigo-600">68</p>
+                                    <p class="text-sm text-gray-600">pacientes (28.1%)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="stat-card p-4 bg-amber-50 border border-amber-200 shadow-sm">
+                                <div class="flex items-center">
+                                    <div class="w-3 h-3 rounded-full bg-amber-500 mr-2"></div>
+                                    <h3 class="font-bold">A confirmar</h3>
+                                </div>
+                                <div class="mt-2">
+                                    <p class="text-3xl font-bold text-amber-500">8</p>
+                                    <p class="text-sm text-gray-600">pacientes (3.3%)</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 text-sm bg-blue-50 p-4 rounded-md">
+                            <h3 class="font-bold text-blue-800 mb-2"><i class="fas fa-info-circle mr-2"></i>Información relevante</h3>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>El <strong>77.7%</strong> de los pacientes presentan hipertensión arterial (sola o combinada)</li>
+                                <li>El <strong>47.1%</strong> presentan diabetes (sola o combinada)</li>
+                                <li>La comorbilidad de ambas patologías afecta al <strong>28.1%</strong> de la población estudiada</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna derecha: Gráfico -->
+                    <div class="w-1/2">
+                        <div class="chart-container border rounded-lg p-4 shadow-lg" style="height: 380px;">
+                            <canvas id="patologiasChart2"></canvas>
+                        </div>
+                        <div class="mt-4 text-center text-gray-600 text-sm">
+                            <p><strong>Gráfico 2:</strong> Distribución de pacientes captados según patología crónica</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Nota al pie -->
+                <div class="mt-6 text-sm text-gray-500 italic">
+                    <p>* Los pacientes con diagnóstico a confirmar corresponden a nuevos casos detectados durante el período de captación que requieren estudios complementarios para su clasificación definitiva.</p>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bar w-full"></div>
+        </div>
+    </section>
+    
+    <!-- Circuito de Salud Integral -->
+    <section id="circuito" class="section">
+        <div class="slide-container flex flex-col">
+            <!-- Barra superior -->
+            <div class="header-bar w-full"></div>
+            
+            <!-- Contenido principal -->
+            <div class="flex-grow px-16 py-10 bg-white">
+                <!-- Título -->
+                <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                    <h1 class="text-4xl font-bold text-gray-800">Circuito de Salud Integral</h1>
+                    <p class="text-xl text-blue-600">Proceso de atención para pacientes crónicos</p>
+                </div>
+                
+                <!-- Contenido dividido en dos columnas -->
+                <div class="flex">
+                    <!-- Columna izquierda: Explicación del proceso -->
+                    <div class="w-1/2 pr-8">
+                        <p class="text-lg mb-5">
+                            Los pacientes crónicos del Hospital del Norte realizan un circuito de salud integral para su patología que incluye:
+                        </p>
+                        
+                        <ol class="space-y-4 ml-2">
+                            <li class="flex">
+                                <span class="bg-blue-100 text-blue-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">1</span>
+                                <span class="text-lg"><strong>Captación</strong> por agentes sanitarios quienes identifican y registran a los pacientes</span>
+                            </li>
+                            <li class="flex">
+                                <span class="bg-blue-100 text-blue-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">2</span>
+                                <span class="text-lg"><strong>Laboratorio</strong> donde se realizan los análisis correspondientes</span>
+                            </li>
+                            <li class="flex">
+                                <span class="bg-blue-100 text-blue-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">3</span>
+                                <span class="text-lg"><strong>Nutrición</strong> donde reciben asesoramiento alimentario</span>
+                            </li>
+                            <li class="flex">
+                                <span class="bg-blue-100 text-blue-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">4</span>
+                                <span class="text-lg"><strong>Enfermería</strong> para cumplimentar la inmunización, cuando sea necesario</span>
+                            </li>
+                            <li class="flex">
+                                <span class="bg-blue-100 text-blue-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">5</span>
+                                <span class="text-lg"><strong>Médico de cabecera</strong> para evaluación y control general</span>
+                            </li>
+                            <li class="flex">
+                                <span class="bg-blue-100 text-blue-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3">6</span>
+                                <span class="text-lg"><strong>Derivación</strong> para estudios o exámenes de mayor complejidad en Hospital Ramón Carrillo (cuando es necesario)</span>
+                            </li>
+                        </ol>
+                        
+                        <div class="mt-6 grid grid-cols-2 gap-4">
+                            <div class="bg-green-50 p-4 rounded-lg border border-green-200 shadow-sm">
+                                <div class="flex items-center">
+                                    <i class="fas fa-apple-alt text-green-600 mr-3 text-xl"></i>
+                                    <h3 class="font-bold text-green-800">Nutrición</h3>
+                                </div>
+                                <div class="mt-2">
+                                    <p class="text-2xl font-bold text-green-600">92</p>
+                                    <p class="text-sm text-gray-600">Pacientes atendidos</p>
+                                    <p class="text-xs text-gray-500">Días lunes y miércoles</p>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 shadow-sm">
+                                <div class="flex items-center">
+                                    <i class="fas fa-syringe text-blue-600 mr-3 text-xl"></i>
+                                    <h3 class="font-bold text-blue-800">Enfermería</h3>
+                                </div>
+                                <div class="mt-2">
+                                    <p class="text-2xl font-bold text-blue-600">80</p>
+                                    <p class="text-sm text-gray-600">Pacientes atendidos</p>
+                                    <p class="text-xs text-gray-500">Días martes y jueves</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna derecha: Diagrama de flujo -->
+                    <div class="w-1/2">
+                        <div class="border rounded-lg p-6 shadow-lg h-full bg-blue-50 flex flex-col items-center justify-center relative">
+                            <!-- Flujo de trabajo -->
+                            <div class="flow-step bg-white p-4 rounded-lg shadow-md mb-6 w-64 text-center">
+                                <i class="fas fa-user-plus text-blue-600 text-2xl mb-2"></i>
+                                <h3 class="font-bold text-gray-800">CAPTACIÓN</h3>
+                                <p class="text-sm text-gray-600">Agentes sanitarios</p>
+                            </div>
+                            <i class="fas fa-chevron-down flow-arrow mb-2" style="color: #0284c7; transform: rotate(90deg);"></i>
+                            
+                            <div class="flow-step bg-white p-4 rounded-lg shadow-md mb-6 w-64 text-center">
+                                <i class="fas fa-flask text-purple-600 text-2xl mb-2"></i>
+                                <h3 class="font-bold text-gray-800">LABORATORIO</h3>
+                                <p class="text-sm text-gray-600">Análisis clínicos</p>
+                            </div>
+                            <i class="fas fa-chevron-down flow-arrow mb-2" style="color: #0284c7; transform: rotate(90deg);"></i>
+                            
+                            <div class="grid grid-cols-2 gap-4 w-full mb-6">
+                                <div class="flow-step bg-white p-4 rounded-lg shadow-md text-center">
+                                    <i class="fas fa-apple-alt text-green-600 text-2xl mb-2"></i>
+                                    <h3 class="font-bold text-gray-800">NUTRICIÓN</h3>
+                                    <p class="text-xs text-gray-600">Lunes y miércoles</p>
+                                </div>
+                                
+                                <div class="flow-step bg-white p-4 rounded-lg shadow-md text-center">
+                                    <i class="fas fa-syringe text-blue-600 text-2xl mb-2"></i>
+                                    <h3 class="font-bold text-gray-800">ENFERMERÍA</h3>
+                                    <p class="text-xs text-gray-600">Martes y jueves</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-down flow-arrow mb-2" style="color: #0284c7; transform: rotate(90deg);"></i>
+                            
+                            <div class="flow-step bg-white p-4 rounded-lg shadow-md mb-6 w-64 text-center">
+                                <i class="fas fa-user-md text-indigo-600 text-2xl mb-2"></i>
+                                <h3 class="font-bold text-gray-800">MÉDICO DE CABECERA</h3>
+                                <p class="text-sm text-gray-600">Evaluación y control</p>
+                            </div>
+                            <i class="fas fa-chevron-down flow-arrow mb-2" style="color: #0284c7; transform: rotate(90deg);"></i>
+                            
+                            <div class="flow-step bg-white p-4 rounded-lg shadow-md w-64 text-center">
+                                <i class="fas fa-hospital text-red-600 text-2xl mb-2"></i>
+                                <h3 class="font-bold text-gray-800">DERIVACIÓN</h3>
+                                <p class="text-sm text-gray-600">Hospital Ramón Carrillo</p>
+                                <p class="text-xs text-gray-500">(cuando es necesario)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Nota al pie -->
+                <div class="mt-6 text-sm text-gray-500 italic">
+                    <p>* Este circuito de atención integral garantiza un seguimiento completo de las patologías crónicas, mejorando la calidad de vida de los pacientes y optimizando los recursos sanitarios disponibles.</p>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bar w-full"></div>
+        </div>
+    </section>
+    
+    <!-- Atención Médica por Doctor -->
+    <section id="atencion" class="section">
+        <div class="slide-container flex flex-col">
+            <!-- Barra superior -->
+            <div class="header-bar w-full"></div>
+            
+            <!-- Contenido principal -->
+            <div class="flex-grow px-16 py-10 bg-white">
+                <!-- Título -->
+                <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                    <h1 class="text-4xl font-bold text-gray-800">Atención Médica por Doctor</h1>
+                    <p class="text-xl text-blue-600">Comparativa de atención entre Dr. Funes y Dr. Dagata</p>
+                </div>
+                
+                <!-- Resumen de datos -->
+                <div class="grid grid-cols-2 gap-6 mb-6">
+                    <!-- Doctor Funes -->
+                    <div class="bg-blue-50 rounded-lg p-5 shadow-sm">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-user-md text-2xl text-blue-600 mr-3"></i>
+                            <h3 class="text-2xl font-semibold text-blue-800">Dr. Funes</h3>
+                        </div>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex justify-between">
+                                <span>Días hábiles:</span>
+                                <span class="font-semibold">25 días</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Turnos disponibles:</span>
+                                <span class="font-semibold">150 turnos</span>
+                            </li>
+                            <li class="flex justify-between text-green-600 font-medium">
+                                <span>Pacientes atendidos:</span>
+                                <span class="font-bold">96 (64%)</span>
+                            </li>
+                            <li class="flex justify-between text-red-600 font-medium">
+                                <span>Pacientes ausentes:</span>
+                                <span class="font-bold">12 (8%)</span>
+                            </li>
+                            <li class="flex justify-between text-amber-600 font-medium">
+                                <span>Pacientes en espera:</span>
+                                <span class="font-bold">29 (19%)</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Doctor Dagata -->
+                    <div class="bg-green-50 rounded-lg p-5 shadow-sm">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-user-md text-2xl text-green-600 mr-3"></i>
+                            <h3 class="text-2xl font-semibold text-green-800">Dr. Dagata</h3>
+                        </div>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex justify-between">
+                                <span>Días hábiles:</span>
+                                <span class="font-semibold">23 días</span>
+                            </li>
+                            <li class="flex justify-between">
+                                <span>Turnos disponibles:</span>
+                                <span class="font-semibold">138 turnos</span>
+                            </li>
+                            <li class="flex justify-between text-green-600 font-medium">
+                                <span>Pacientes atendidos:</span>
+                                <span class="font-bold">46 (33%)</span>
+                            </li>
+                            <li class="flex justify-between text-red-600 font-medium">
+                                <span>Pacientes ausentes:</span>
+                                <span class="font-bold">15 (11%)</span>
+                            </li>
+                            <li class="flex justify-between text-amber-600 font-medium">
+                                <span>Pacientes en espera:</span>
+                                <span class="font-bold">40 (29%)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Gráfico comparativo -->
+                <div class="mt-2">
+                    <div class="chart-container border rounded-lg p-4 shadow-lg" style="height: 350px;">
+                        <canvas id="doctoresChart"></canvas>
+                    </div>
+                    
+                    <!-- Leyenda -->
+                    <div class="mt-4 flex justify-center">
+                        <div class="legend-item">
+                            <div class="legend-color bg-green-500"></div>
+                            <span>Pacientes atendidos</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color bg-red-500"></div>
+                            <span>Pacientes ausentes</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color bg-amber-400"></div>
+                            <span>Pacientes en espera</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-2 text-center text-gray-600 text-sm">
+                        <p><strong>Gráfico 3:</strong> Comparativa de pacientes por estado de atención entre doctores</p>
+                    </div>
+                </div>
+                
+                <!-- Nota al pie -->
+                <div class="mt-4 text-sm text-gray-500 italic">
+                    <p>* Los días hábiles corresponden a: Lunes y Miércoles (Dr. Funes) y Martes y Jueves (Dr. Dagata) durante el período de 10 de marzo al 10 de junio de 2025.</p>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bar w-full"></div>
+        </div>
+    </section>
+    
+    <!-- Laboratorio y Turnos de Análisis -->
+    <section id="laboratorio" class="section">
+        <div class="slide-container flex flex-col">
+            <!-- Barra superior -->
+            <div class="header-bar w-full"></div>
+            
+            <!-- Contenido principal -->
+            <div class="flex-grow px-16 py-10 bg-white">
+                <!-- Título -->
+                <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                    <h1 class="text-4xl font-bold text-gray-800">Laboratorio y Turnos de Análisis</h1>
+                    <p class="text-xl text-blue-600">Período: 10 de marzo al 10 de junio de 2025</p>
+                </div>
+                
+                <!-- Contenido dividido en dos columnas -->
+                <div class="flex">
+                    <!-- Columna izquierda: Texto -->
+                    <div class="w-1/2 pr-8">
+                        <div class="mb-6">
+                            <p class="text-lg mb-4">El laboratorio del Hospital del Norte dispuso de <span class="font-bold text-blue-600">3 turnos diarios</span> para análisis de rutina de pacientes crónicos durante el período marzo-junio 2025:</p>
+                            <ul class="space-y-3">
+                                <li class="flex items-center">
+                                    <div class="w-5 h-5 rounded-full bg-blue-500 mr-3"></div>
+                                    <span class="text-lg"><span class="font-bold">172 turnos</span> fueron otorgados en el laboratorio del hospital</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <div class="w-5 h-5 rounded-full bg-green-500 mr-3"></div>
+                                    <span class="text-lg"><span class="font-bold">67 pacientes</span> asistieron con análisis realizados de manera particular y/o en otra institución</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <div class="w-5 h-5 rounded-full bg-purple-500 mr-3"></div>
+                                    <span class="text-lg"><span class="font-bold">239 pacientes</span> en total con análisis completos</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    <!-- Columna derecha: Gráficos -->
+                    <div class="w-1/2">
+                        <div class="chart-container border rounded-lg p-4 shadow-lg mb-4" style="height: 320px;">
+                            <canvas id="barChart"></canvas>
+                        </div>
+                        <div class="chart-container border rounded-lg p-4 shadow-lg" style="height: 200px;">
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                        <div class="mt-3 text-center text-gray-600 text-sm">
+                            <p><strong>Gráficos:</strong> Distribución de análisis por tipo y proporción</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bar w-full"></div>
+        </div>
+    </section>
+    
+    <!-- Interconsultas y Derivaciones -->
+    <section id="interconsultas" class="section">
+        <div class="slide-container flex flex-col">
+            <!-- Barra superior -->
+            <div class="header-bar w-full"></div>
+            
+            <!-- Contenido principal -->
+            <div class="flex-grow px-16 py-10 bg-white">
+                <!-- Título -->
+                <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                    <h1 class="text-4xl font-bold text-gray-800">Interconsultas y Derivaciones</h1>
+                    <p class="text-xl text-blue-600">Hospital Ramón Carrillo - Trabajo Interinstitucional</p>
+                </div>
+                
+                <!-- Contenido dividido en dos columnas -->
+                <div class="flex">
+                    <!-- Columna izquierda: Texto -->
+                    <div class="w-1/3 pr-8">
+                        <div class="mb-6">
+                            <div class="bg-blue-50 p-4 rounded-lg shadow-sm mb-4">
+                                <p class="text-2xl font-bold text-blue-700 mb-1">53</p>
+                                <p class="text-lg text-blue-600">Interconsultas</p>
+                            </div>
+                            
+                            <p class="text-lg mb-4">Se gestionaron interconsultas con especialistas del Hospital Ramón Carrillo para garantizar una atención completa a los pacientes crónicos.</p>
+                            
+                            <div class="mt-6">
+                                <h3 class="text-lg font-semibold text-gray-700 mb-2">Especialidades más demandadas:</h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center">
+                                        <i class="fas fa-eye text-blue-600 mr-2"></i>
+                                        <span>Oftalmología: 9 pacientes</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-brain text-blue-600 mr-2"></i>
+                                        <span>Neurología: 9 pacientes</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-heartbeat text-blue-600 mr-2"></i>
+                                        <span>Cardiología: 6 pacientes</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-syringe text-blue-600 mr-2"></i>
+                                        <span>Endocrinología: 5 pacientes</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna derecha: Gráfico -->
+                    <div class="w-2/3">
+                        <div class="chart-container border rounded-lg p-4 shadow-lg" style="height: 480px;">
+                            <canvas id="interconsultasChart"></canvas>
+                        </div>
+                        <div class="mt-4 text-center text-gray-600 text-sm">
+                            <p><strong>Gráfico 1:</strong> Distribución de interconsultas por especialidad</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Nota al pie -->
+                <div class="mt-6 text-sm text-gray-500 italic">
+                    <p>* El trabajo interinstitucional entre el Hospital del Norte y el Hospital Ramón Carrillo es fundamental para garantizar una atención integral a pacientes con patologías crónicas.</p>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bar w-full"></div>
+        </div>
+    </section>
+    
+    <!-- Exámenes Realizados en Hospital Ramón Carrillo -->
+    <section id="examenes" class="section">
+        <div class="slide-container flex flex-col">
+            <!-- Barra superior -->
+            <div class="header-bar w-full"></div>
+            
+            <!-- Contenido principal -->
+            <div class="flex-grow px-16 py-10 bg-white">
+                <!-- Título -->
+                <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                    <h1 class="text-4xl font-bold text-gray-800">Exámenes Realizados en Hospital Ramón Carrillo</h1>
+                    <p class="text-xl text-blue-600">Distribución por tipo de estudio - Marzo a Junio 2025</p>
+                </div>
+                
+                <!-- Contenido dividido en dos columnas -->
+                <div class="flex">
+                    <!-- Columna izquierda: Texto -->
+                    <div class="w-1/2 pr-8">
+                        <div class="mb-6">
+                            <p class="text-lg mb-4">Se gestionaron <span class="font-bold text-blue-600">26 turnos</span> para exámenes complementarios en el Hospital Ramón Carrillo durante el período, distribuidos en las siguientes categorías:</p>
+                            
+                            <div class="grid grid-cols-2 gap-2 mt-6">
+                                <div class="flex items-center">
+                                    <i class="fas fa-heartbeat text-red-500 mr-2"></i>
+                                    <span>Electrocardiograma: <strong>4</strong></span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-heart text-red-500 mr-2"></i>
+                                    <span>Ecocardiograma: <strong>3</strong></span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-wave-square text-blue-500 mr-2"></i>
+                                    <span>Ecografía: <strong>6</strong></span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-brain text-purple-500 mr-2"></i>
+                                    <span>Resonancia: <strong>4</strong></span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-tint text-blue-500 mr-2"></i>
+                                    <span>Eco Doppler: <strong>3</strong></span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-x-ray text-gray-500 mr-2"></i>
+                                    <span>Radiología: <strong>2</strong></span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-venus text-pink-500 mr-2"></i>
+                                    <span>Mamografía: <strong>2</strong></span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-cube text-gray-500 mr-2"></i>
+                                    <span>Tomografía: <strong>2</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 p-4 bg-blue-50 rounded-lg">
+                            <h3 class="font-bold text-blue-700 mb-2">
+                                <i class="fas fa-info-circle mr-2"></i>Importancia del diagnóstico por imágenes
+                            </h3>
+                            <p class="text-sm">
+                                El trabajo interinstitucional ha permitido agilizar el acceso a estudios complementarios fundamentales para el seguimiento adecuado de pacientes con patologías crónicas de HTA y DBT, mejorando la detección temprana de complicaciones.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna derecha: Gráfico -->
+                    <div class="w-1/2">
+                        <div class="chart-container border rounded-lg p-4 shadow-lg" style="height: 360px;">
+                            <canvas id="examenesChart"></canvas>
+                        </div>
+                        <div class="mt-4 text-center text-gray-600 text-sm">
+                            <p><strong>Gráfico 7:</strong> Distribución de exámenes complementarios realizados en Hospital Ramón Carrillo</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Nota al pie -->
+                <div class="mt-6 text-sm text-gray-500 flex items-center justify-center">
+                    <i class="fas fa-link mr-2"></i>
+                    <p>La articulación entre Hospital del Norte y Hospital Ramón Carrillo optimiza recursos y garantiza atención integral a pacientes crónicos.</p>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bar w-full"></div>
+        </div>
+    </section>
+    
+    <!-- Conclusiones y Recomendaciones -->
+    <section id="conclusiones" class="section">
+        <div class="slide-container flex flex-col">
+            <!-- Barra superior -->
+            <div class="header-bar w-full"></div>
+            
+            <!-- Contenido principal -->
+            <div class="flex-grow px-16 py-10 bg-white">
+                <!-- Título -->
+                <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                    <h1 class="text-4xl font-bold text-gray-800">Conclusiones y Recomendaciones</h1>
+                    <p class="text-xl text-blue-600">Hospital del Norte - Período 2025</p>
+                </div>
+                
+                <!-- Contenido dividido en dos columnas -->
+                <div class="flex">
+                    <!-- Columna izquierda: Conclusiones -->
+                    <div class="w-1/2 pr-8">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-4">Conclusiones</h2>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                    <span class="text-lg">Se captaron 242 pacientes con patologías crónicas en 63 días hábiles</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                    <span class="text-lg">El 77.7% presentan hipertensión arterial (sola o combinada)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                    <span class="text-lg">Se realizaron 239 análisis de laboratorio (72% en el hospital)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                    <span class="text-lg">Se gestionaron 53 interconsultas y 67 exámenes complementarios</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Columna derecha: Recomendaciones -->
+                    <div class="w-1/2">
+                        <div class="mb-6">
+                            <h2 class="text-2xl font-bold text-gray-800 mb-4">Recomendaciones</h2>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-blue-500 mr-3 mt-1"></i>
+                                    <span class="text-lg">Aumentar la capacidad del laboratorio para reducir derivaciones externas</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-blue-500 mr-3 mt-1"></i>
+                                    <span class="text-lg">Fortalecer el trabajo interinstitucional con Hospital Ramón Carrillo</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-blue-500 mr-3 mt-1"></i>
+                                    <span class="text-lg">Implementar seguimiento sistemático de pacientes crónicos</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-blue-500 mr-3 mt-1"></i>
+                                    <span class="text-lg">Desarrollar programas de educación para la salud</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Nota al pie -->
+                <div class="mt-6 text-sm text-gray-500 italic">
+                    <p>* El Hospital del Norte continúa comprometido con la mejora continua de la atención a pacientes crónicos.</p>
+                </div>
+            </div>
+            
+            <!-- Barra inferior -->
+            <div class="footer-bar w-full"></div>
+        </div>
+    </section>
+    
+    <!-- Scripts de gráficos (puedes copiar los scripts de cada slide aquí) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gráfico 1: Distribución de pacientes por patología (Resumen Ejecutivo)
+            const ctx1 = document.getElementById('patologiasChart1').getContext('2d');
+            new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: ['HTA', 'DBT', 'HTA + DBT', 'A confirmar'],
+                    datasets: [{
+                        data: [120, 46, 68, 8],
+                        backgroundColor: [
+                            '#0284c7', // Azul para HTA
+                            '#10b981', // Verde para DBT
+                            '#6366f1', // Índigo para HTA+DBT
+                            '#f59e0b'  // Amarillo para casos a confirmar
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Distribución de Pacientes por Patología',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((acc, data) => acc + data, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} pacientes (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Gráfico 2: Distribución de pacientes captados (Captación)
+            const ctx2 = document.getElementById('patologiasChart2').getContext('2d');
+            new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: ['HTA (Hipertensión)', 'DBT (Diabetes)', 'HTA + DBT', 'A confirmar'],
+                    datasets: [{
+                        data: [120, 46, 68, 8],
+                        backgroundColor: [
+                            '#0284c7',  // Azul para HTA
+                            '#10b981',  // Verde para DBT
+                            '#6366f1',  // Índigo para HTA+DBT
+                            '#f59e0b'   // Amarillo para casos a confirmar
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Distribución de Pacientes por Patología',
+                            font: {
+                                size: 18,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 15,
+                                padding: 15
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((acc, data) => acc + data, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} pacientes (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Gráfico 3: Comparativa de doctores
+            const ctx3 = document.getElementById('doctoresChart').getContext('2d');
+            new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: ['Dr. Funes', 'Dr. Dagata'],
+                    datasets: [
+                        {
+                            label: 'Pacientes atendidos',
+                            data: [96, 46],
+                            backgroundColor: '#10b981', // Verde
+                            borderColor: '#059669',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Pacientes ausentes',
+                            data: [12, 15],
+                            backgroundColor: '#ef4444', // Rojo
+                            borderColor: '#dc2626',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Pacientes en espera',
+                            data: [29, 40],
+                            backgroundColor: '#f59e0b', // Amarillo
+                            borderColor: '#d97706',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Comparativa de Atención Entre Doctores',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += context.parsed.y + ' pacientes';
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Número de Pacientes'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico 4: Laboratorio - Gráfico de barras
+            const ctx4 = document.getElementById('barChart').getContext('2d');
+            new Chart(ctx4, {
+                type: 'bar',
+                data: {
+                    labels: ['Turnos otorgados', 'Análisis externos', 'Total'],
+                    datasets: [{
+                        label: 'Cantidad',
+                        data: [172, 67, 239],
+                        backgroundColor: [
+                            '#0284c7', // Azul
+                            '#10b981', // Verde
+                            '#6366f1'  // Índigo
+                        ],
+                        borderColor: [
+                            '#0369a1',
+                            '#059669',
+                            '#4f46e5'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Distribución de Análisis de Laboratorio',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Cantidad de Análisis'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico 5: Laboratorio - Gráfico circular
+            const ctx5 = document.getElementById('pieChart').getContext('2d');
+            new Chart(ctx5, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Hospital del Norte', 'Servicios externos'],
+                    datasets: [{
+                        data: [172, 67],
+                        backgroundColor: [
+                            '#0284c7', // Azul
+                            '#10b981'  // Verde
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((acc, data) => acc + data, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico 6: Interconsultas
+            const ctx6 = document.getElementById('interconsultasChart').getContext('2d');
+            new Chart(ctx6, {
+                type: 'bar',
+                data: {
+                    labels: ['Oftalmología', 'Neurología', 'Cardiología', 'Endocrinología', 'Otras'],
+                    datasets: [{
+                        label: 'Pacientes',
+                        data: [9, 9, 6, 5, 24],
+                        backgroundColor: [
+                            '#0284c7', // Azul
+                            '#10b981', // Verde
+                            '#f59e0b', // Amarillo
+                            '#ef4444', // Rojo
+                            '#8b5cf6'  // Púrpura
+                        ],
+                        borderColor: [
+                            '#0369a1',
+                            '#059669',
+                            '#d97706',
+                            '#dc2626',
+                            '#7c3aed'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Interconsultas por Especialidad',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Número de Pacientes'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Gráfico 7: Exámenes
+            const ctx7 = document.getElementById('examenesChart').getContext('2d');
+            new Chart(ctx7, {
+                type: 'bar',
+                data: {
+                    labels: ['Ecografía', 'Electrocardiograma', 'Resonancia', 'Ecocardiograma', 'Eco Doppler', 'Radiología', 'Mamografía', 'Tomografía'],
+                    datasets: [{
+                        label: 'Cantidad de exámenes',
+                        data: [6, 4, 4, 3, 3, 2, 2, 2],
+                        backgroundColor: [
+                            '#3b82f6', // Ecografía
+                            '#ef4444', // Electrocardiograma
+                            '#8b5cf6', // Resonancia
+                            '#f97316', // Ecocardiograma
+                            '#06b6d4', // Eco Doppler
+                            '#6b7280', // Radiología
+                            '#ec4899', // Mamografía
+                            '#4b5563'  // Tomografía
+                        ],
+                        borderWidth: 1,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Exámenes complementarios (n=26)',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((acc, data) => acc + data, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Cantidad de pacientes'
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Tipo de examen'
+                            }
+                        }
+                    },
+                    maintainAspectRatio: false
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

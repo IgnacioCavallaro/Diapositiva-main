@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atención Médica por Doctor</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            background-color: #ffffff;
+        }
+        .header-bar {
+            height: 12px;
+            background-color: #0284c7;
+        }
+        .footer-bar {
+            height: 12px;
+            background-color: #10b981;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 350px;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+            color: #64748b;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col">
+        <!-- Barra superior -->
+        <div class="header-bar w-full"></div>
+        
+        <!-- Contenido principal -->
+        <div class="flex-grow px-16 py-10">
+            <!-- Título -->
+            <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                <h1 class="text-4xl font-bold text-gray-800">Atención Médica por Doctor</h1>
+                <p class="text-xl text-blue-600">Comparativa de atención entre Dr. Funes y Dr. Dagata</p>
+            </div>
+            
+            <!-- Resumen de datos -->
+            <div class="grid grid-cols-2 gap-6 mb-6">
+                <!-- Doctor Funes -->
+                <div class="bg-blue-50 rounded-lg p-5 shadow-sm">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-user-md text-2xl text-blue-600 mr-3"></i>
+                        <h3 class="text-2xl font-semibold text-blue-800">Dr. Funes</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex justify-between">
+                            <span>Días hábiles:</span>
+                            <span class="font-semibold">25 días</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Turnos disponibles:</span>
+                            <span class="font-semibold">150 turnos</span>
+                        </li>
+                        <li class="flex justify-between text-green-600 font-medium">
+                            <span>Pacientes atendidos:</span>
+                            <span class="font-bold">96 (64%)</span>
+                        </li>
+                        <li class="flex justify-between text-red-600 font-medium">
+                            <span>Pacientes ausentes:</span>
+                            <span class="font-bold">12 (8%)</span>
+                        </li>
+                        <li class="flex justify-between text-amber-600 font-medium">
+                            <span>Pacientes en espera:</span>
+                            <span class="font-bold">29 (19%)</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Doctor Dagata -->
+                <div class="bg-green-50 rounded-lg p-5 shadow-sm">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-user-md text-2xl text-green-600 mr-3"></i>
+                        <h3 class="text-2xl font-semibold text-green-800">Dr. Dagata</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex justify-between">
+                            <span>Días hábiles:</span>
+                            <span class="font-semibold">23 días</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Turnos disponibles:</span>
+                            <span class="font-semibold">138 turnos</span>
+                        </li>
+                        <li class="flex justify-between text-green-600 font-medium">
+                            <span>Pacientes atendidos:</span>
+                            <span class="font-bold">46 (33%)</span>
+                        </li>
+                        <li class="flex justify-between text-red-600 font-medium">
+                            <span>Pacientes ausentes:</span>
+                            <span class="font-bold">15 (11%)</span>
+                        </li>
+                        <li class="flex justify-between text-amber-600 font-medium">
+                            <span>Pacientes en espera:</span>
+                            <span class="font-bold">40 (29%)</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Gráfico comparativo -->
+            <div class="mt-2">
+                <div class="chart-container border rounded-lg p-4 shadow-lg">
+                    <canvas id="doctoresChart"></canvas>
+                </div>
+                
+                <!-- Leyenda -->
+                <div class="mt-4 flex justify-center">
+                    <div class="legend-item">
+                        <div class="legend-color bg-green-500"></div>
+                        <span>Pacientes atendidos</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color bg-red-500"></div>
+                        <span>Pacientes ausentes</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color bg-amber-400"></div>
+                        <span>Pacientes en espera</span>
+                    </div>
+                </div>
+                
+                <div class="mt-2 text-center text-gray-600 text-sm">
+                    <p><strong>Gráfico 3:</strong> Comparativa de pacientes por estado de atención entre doctores</p>
+                </div>
+            </div>
+            
+            <!-- Nota al pie -->
+            <div class="mt-4 text-sm text-gray-500 italic">
+                <p>* Los días hábiles corresponden a: Lunes y Miércoles (Dr. Funes) y Martes y Jueves (Dr. Dagata) durante el período de 10 de marzo al 10 de junio de 2025.</p>
+            </div>
+            
+            <div class="slide-number">5/9</div>
+        </div>
+        
+        <!-- Barra inferior -->
+        <div class="footer-bar w-full"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('doctoresChart').getContext('2d');
+            
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Dr. Funes', 'Dr. Dagata'],
+                    datasets: [
+                        {
+                            label: 'Pacientes atendidos',
+                            data: [96, 46],
+                            backgroundColor: '#10b981', // Verde
+                            borderColor: '#059669',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Pacientes ausentes',
+                            data: [12, 15],
+                            backgroundColor: '#ef4444', // Rojo
+                            borderColor: '#dc2626',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Pacientes en espera',
+                            data: [29, 40],
+                            backgroundColor: '#f59e0b', // Amarillo
+                            borderColor: '#d97706',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Comparativa de Atención Entre Doctores',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += context.parsed.y + ' pacientes';
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Número de Pacientes'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

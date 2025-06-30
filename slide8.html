@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exámenes Realizados en Hospital Ramón Carrillo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            background-color: #ffffff;
+        }
+        .header-bar {
+            height: 12px;
+            background-color: #0284c7;
+        }
+        .footer-bar {
+            height: 12px;
+            background-color: #10b981;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 360px;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col">
+        <!-- Barra superior -->
+        <div class="header-bar w-full"></div>
+        
+        <!-- Contenido principal -->
+        <div class="flex-grow px-16 py-10">
+            <!-- Título -->
+            <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                <h1 class="text-4xl font-bold text-gray-800">Exámenes Realizados en Hospital Ramón Carrillo</h1>
+                <p class="text-xl text-blue-600">Distribución por tipo de estudio - Marzo a Junio 2025</p>
+            </div>
+            
+            <!-- Contenido dividido en dos columnas -->
+            <div class="flex">
+                <!-- Columna izquierda: Texto -->
+                <div class="w-1/2 pr-8">
+                    <div class="mb-6">
+                        <p class="text-lg mb-4">Se gestionaron <span class="font-bold text-blue-600">26 turnos</span> para exámenes complementarios en el Hospital Ramón Carrillo durante el período, distribuidos en las siguientes categorías:</p>
+                        
+                        <div class="grid grid-cols-2 gap-2 mt-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-heartbeat text-red-500 mr-2"></i>
+                                <span>Electrocardiograma: <strong>4</strong></span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-heart text-red-500 mr-2"></i>
+                                <span>Ecocardiograma: <strong>3</strong></span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-wave-square text-blue-500 mr-2"></i>
+                                <span>Ecografía: <strong>6</strong></span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-brain text-purple-500 mr-2"></i>
+                                <span>Resonancia: <strong>4</strong></span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-tint text-blue-500 mr-2"></i>
+                                <span>Eco Doppler: <strong>3</strong></span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-x-ray text-gray-500 mr-2"></i>
+                                <span>Radiología: <strong>2</strong></span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-venus text-pink-500 mr-2"></i>
+                                <span>Mamografía: <strong>2</strong></span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-cube text-gray-500 mr-2"></i>
+                                <span>Tomografía: <strong>2</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-4 bg-blue-50 rounded-lg">
+                        <h3 class="font-bold text-blue-700 mb-2">
+                            <i class="fas fa-info-circle mr-2"></i>Importancia del diagnóstico por imágenes
+                        </h3>
+                        <p class="text-sm">
+                            El trabajo interinstitucional ha permitido agilizar el acceso a estudios complementarios fundamentales para el seguimiento adecuado de pacientes con patologías crónicas de HTA y DBT, mejorando la detección temprana de complicaciones.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Columna derecha: Gráfico -->
+                <div class="w-1/2">
+                    <div class="chart-container border rounded-lg p-4 shadow-lg">
+                        <canvas id="examenesChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center text-gray-600 text-sm">
+                        <p><strong>Gráfico 7:</strong> Distribución de exámenes complementarios realizados en Hospital Ramón Carrillo</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Nota al pie -->
+            <div class="mt-6 text-sm text-gray-500 flex items-center justify-center">
+                <i class="fas fa-link mr-2"></i>
+                <p>La articulación entre Hospital del Norte y Hospital Ramón Carrillo optimiza recursos y garantiza atención integral a pacientes crónicos.</p>
+            </div>
+            
+            <div class="slide-number">8/9</div>
+        </div>
+        
+        <!-- Barra inferior -->
+        <div class="footer-bar w-full"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('examenesChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Ecografía', 'Electrocardiograma', 'Resonancia', 'Ecocardiograma', 'Eco Doppler', 'Radiología', 'Mamografía', 'Tomografía'],
+                    datasets: [{
+                        label: 'Cantidad de exámenes',
+                        data: [6, 4, 4, 3, 3, 2, 2, 2],
+                        backgroundColor: [
+                            '#3b82f6', // Ecografía
+                            '#ef4444', // Electrocardiograma
+                            '#8b5cf6', // Resonancia
+                            '#f97316', // Ecocardiograma
+                            '#06b6d4', // Eco Doppler
+                            '#6b7280', // Radiología
+                            '#ec4899', // Mamografía
+                            '#4b5563'  // Tomografía
+                        ],
+                        borderWidth: 1,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Exámenes complementarios (n=26)',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((acc, data) => acc + data, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Cantidad de pacientes'
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Tipo de examen'
+                            }
+                        }
+                    },
+                    maintainAspectRatio: false
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

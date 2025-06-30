@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interconsultas y Derivaciones al Hospital Ramón Carrillo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            background-color: #ffffff;
+        }
+        .header-bar {
+            height: 12px;
+            background-color: #0284c7;
+        }
+        .footer-bar {
+            height: 12px;
+            background-color: #10b981;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 480px;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col">
+        <!-- Barra superior -->
+        <div class="header-bar w-full"></div>
+        
+        <!-- Contenido principal -->
+        <div class="flex-grow px-16 py-10">
+            <!-- Título -->
+            <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                <h1 class="text-4xl font-bold text-gray-800">Interconsultas y Derivaciones</h1>
+                <p class="text-xl text-blue-600">Hospital Ramón Carrillo - Trabajo Interinstitucional</p>
+            </div>
+            
+            <!-- Contenido dividido en dos columnas -->
+            <div class="flex">
+                <!-- Columna izquierda: Texto -->
+                <div class="w-1/3 pr-8">
+                    <div class="mb-6">
+                        <div class="bg-blue-50 p-4 rounded-lg shadow-sm mb-4">
+                            <p class="text-2xl font-bold text-blue-700 mb-1">53</p>
+                            <p class="text-lg text-blue-600">Interconsultas</p>
+                        </div>
+                        
+                        <p class="text-lg mb-4">Se gestionaron interconsultas con especialistas del Hospital Ramón Carrillo para garantizar una atención completa a los pacientes crónicos.</p>
+                        
+                        <div class="mt-6">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-2">Especialidades más demandadas:</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fas fa-eye text-blue-600 mr-2"></i>
+                                    <span>Oftalmología: 9 pacientes</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-brain text-blue-600 mr-2"></i>
+                                    <span>Neurología: 9 pacientes</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-heartbeat text-blue-600 mr-2"></i>
+                                    <span>Cardiología: 6 pacientes</span>
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-syringe text-blue-600 mr-2"></i>
+                                    <span>Endocrinología: 5 pacientes</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Columna derecha: Gráfico -->
+                <div class="w-2/3">
+                    <div class="chart-container border rounded-lg p-4 shadow-lg">
+                        <canvas id="interconsultasChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center text-gray-600 text-sm">
+                        <p><strong>Gráfico 1:</strong> Distribución de interconsultas por especialidad</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Nota al pie -->
+            <div class="mt-6 text-sm text-gray-500 italic">
+                <p>* El trabajo interinstitucional entre el Hospital del Norte y el Hospital Ramón Carrillo es fundamental para garantizar una atención integral a pacientes con patologías crónicas.</p>
+            </div>
+            
+            <div class="slide-number">7/9</div>
+        </div>
+        
+        <!-- Barra inferior -->
+        <div class="footer-bar w-full"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('interconsultasChart').getContext('2d');
+            
+            const especialidades = [
+                'OFTALMOLOGÍA', 'NEUROLOGÍA', 'CARDIOLOGÍA', 'ENDOCRINOLOGÍA', 
+                'TRAUMATOLOGÍA', 'UROLOGÍA', 'HEPATOLOGÍA', 'NEFROLOGÍA', 
+                'DERMATOLOGÍA', 'NEUROCIRUGÍA', 'DIABETOLOGÍA', 'REUMATOLOGÍA',
+                'NEUMONOLOGÍA', 'CIRUGÍA GRAL', 'GASTROENTEROLOGÍA', 
+                'OTORRINOLARINGOLOGÍA', 'FLEBOLOGÍA'
+            ];
+            
+            const cantidades = [9, 9, 6, 5, 4, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1];
+            
+            // Ordenar los datos de mayor a menor para mejor visualización
+            const ordenado = especialidades.map((especialidad, i) => ({
+                especialidad,
+                cantidad: cantidades[i]
+            })).sort((a, b) => b.cantidad - a.cantidad);
+            
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ordenado.map(item => item.especialidad),
+                    datasets: [{
+                        label: 'Interconsultas',
+                        data: ordenado.map(item => item.cantidad),
+                        backgroundColor: '#3b82f6',
+                        borderColor: '#2563eb',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Interconsultas por Especialidad',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.raw} pacientes`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Cantidad de pacientes',
+                                font: {
+                                    size: 14
+                                }
+                            },
+                            ticks: {
+                                stepSize: 1
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Especialidad',
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        }
+                    },
+                    maintainAspectRatio: false
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

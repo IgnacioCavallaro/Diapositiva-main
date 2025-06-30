@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conclusiones y Recomendaciones</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            background-color: #ffffff;
+        }
+        .header-bar {
+            height: 12px;
+            background-color: #0284c7;
+        }
+        .footer-bar {
+            height: 12px;
+            background-color: #10b981;
+        }
+        .conclusion-card {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .conclusion-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col">
+        <!-- Barra superior -->
+        <div class="header-bar w-full"></div>
+        
+        <!-- Contenido principal -->
+        <div class="flex-grow px-16 py-10">
+            <!-- Título -->
+            <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                <h1 class="text-4xl font-bold text-gray-800">Conclusiones y Recomendaciones</h1>
+                <p class="text-xl text-blue-600">Seguimiento de Pacientes Crónicos - Hospital del Norte</p>
+            </div>
+            
+            <!-- Contenido en cuatro sectores -->
+            <div class="grid grid-cols-2 gap-6 mb-6">
+                <!-- Síntesis de Resultados -->
+                <div class="conclusion-card bg-blue-50 p-5">
+                    <div class="flex items-start">
+                        <div class="icon-circle bg-blue-100 mr-4">
+                            <i class="fas fa-chart-line text-3xl text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-blue-700 mb-2">Síntesis de Resultados</h3>
+                            <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                <li>242 pacientes captados en 63 días hábiles</li>
+                                <li>142 pacientes atendidos por especialistas (74%)</li>
+                                <li>239 turnos efectivos de laboratorio/análisis</li>
+                                <li>53 interconsultas y 26 exámenes derivados</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Logros Alcanzados -->
+                <div class="conclusion-card bg-green-50 p-5">
+                    <div class="flex items-start">
+                        <div class="icon-circle bg-green-100 mr-4">
+                            <i class="fas fa-trophy text-3xl text-green-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-green-700 mb-2">Logros Alcanzados</h3>
+                            <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                <li>Implementación exitosa del sistema de captación y seguimiento</li>
+                                <li>Articulación efectiva entre Hospital del Norte y Hospital Ramón Carrillo</li>
+                                <li>Alta tasa de diagnóstico temprano en pacientes de riesgo</li>
+                                <li>Sistema de turnos optimizado con seguimiento personalizado</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Puntos de Mejora -->
+                <div class="conclusion-card bg-amber-50 p-5">
+                    <div class="flex items-start">
+                        <div class="icon-circle bg-amber-100 mr-4">
+                            <i class="fas fa-tools text-3xl text-amber-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-amber-700 mb-2">Puntos de Mejora</h3>
+                            <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                <li>Reducir la tasa de inasistencia (actualmente 11%)</li>
+                                <li>Acelerar los tiempos de espera para resultados de laboratorio</li>
+                                <li>Aumentar la capacidad operativa en días de alta demanda</li>
+                                <li>Implementar sistema de recordatorio de turnos para pacientes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recomendaciones -->
+                <div class="conclusion-card bg-purple-50 p-5">
+                    <div class="flex items-start">
+                        <div class="icon-circle bg-purple-100 mr-4">
+                            <i class="fas fa-lightbulb text-3xl text-purple-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-purple-700 mb-2">Recomendaciones</h3>
+                            <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                <li>Implementar sistema de mensajería para recordar turnos</li>
+                                <li>Ampliar la capacidad de laboratorio en 2-3 turnos diarios</li>
+                                <li>Desarrollar programa educativo para pacientes crónicos</li>
+                                <li>Capacitar a más agentes sanitarios en captación temprana</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Indicador de logro general -->
+            <div class="mt-4 mb-2 text-center">
+                <h3 class="text-lg font-semibold text-gray-700">Nivel de Cumplimiento del Programa</h3>
+                <div class="w-3/4 mx-auto mt-2">
+                    <canvas id="gaugeChart" height="120"></canvas>
+                </div>
+            </div>
+            
+            <!-- Llamado a la acción final -->
+            <div class="mt-4 text-center bg-blue-50 rounded-lg p-3 w-3/4 mx-auto">
+                <p class="text-blue-800 font-medium">
+                    El Hospital del Norte reafirma su compromiso con la atención integral de pacientes crónicos, fortaleciendo la continuidad asistencial y la estrategia de captación temprana.
+                </p>
+            </div>
+            
+            <div class="slide-number">9/9</div>
+        </div>
+        
+        <!-- Barra inferior -->
+        <div class="footer-bar w-full"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('gaugeChart').getContext('2d');
+            
+            // Datos para el medidor de éxito (75% de éxito general)
+            const gaugeData = {
+                datasets: [{
+                    data: [75, 25],
+                    backgroundColor: [
+                        '#10b981', // Verde para el progreso
+                        '#e2e8f0'  // Gris claro para lo restante
+                    ],
+                    borderWidth: 0,
+                    cutout: '75%'
+                }]
+            };
+            
+            const gaugeOptions = {
+                plugins: {
+                    tooltip: { enabled: false },
+                    legend: { display: false },
+                    doughnutlabel: {
+                        labels: [{
+                            text: '75%',
+                            font: { size: 20, weight: 'bold' }
+                        }]
+                    }
+                },
+                rotation: -90,
+                circumference: 180,
+                maintainAspectRatio: false
+            };
+            
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: gaugeData,
+                options: gaugeOptions,
+                plugins: [{
+                    id: 'gaugeText',
+                    afterDraw: (chart) => {
+                        const {ctx, width, height} = chart;
+                        ctx.save();
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.font = 'bold 30px Montserrat';
+                        ctx.fillStyle = '#10b981';
+                        ctx.fillText('75%', width / 2, height - 30);
+                        ctx.font = '16px Montserrat';
+                        ctx.fillStyle = '#64748b';
+                        ctx.fillText('Efectividad', width / 2, height - 5);
+                        ctx.restore();
+                    }
+                }]
+            });
+        });
+    </script>
+</body>
+</html> 

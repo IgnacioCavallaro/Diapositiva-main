@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen Ejecutivo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            position: relative;
+            background-color: #ffffff;
+        }
+        .header-bar {
+            height: 12px;
+            background-color: #0284c7;
+        }
+        .footer-bar {
+            height: 12px;
+            background-color: #10b981;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 320px;
+        }
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container flex flex-col">
+        <!-- Barra superior -->
+        <div class="header-bar w-full"></div>
+        
+        <!-- Contenido principal -->
+        <div class="flex-grow px-16 py-10">
+            <!-- Título -->
+            <div class="mb-6 border-l-4 border-blue-600 pl-4">
+                <h1 class="text-4xl font-bold text-gray-800">Resumen Ejecutivo</h1>
+                <p class="text-xl text-blue-600">Período: 10 de marzo al 10 de junio de 2025</p>
+            </div>
+            
+            <!-- Contenido dividido en dos columnas -->
+            <div class="flex">
+                <!-- Columna izquierda: Texto -->
+                <div class="w-1/2 pr-8">
+                    <div class="mb-6">
+                        <p class="text-lg mb-4">En <span class="font-bold text-blue-600">63 días hábiles</span>, los agentes sanitarios del Hospital del Norte captaron <span class="font-bold text-blue-600">242 pacientes</span> con patologías crónicas:</p>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li class="text-lg">120 pacientes con Hipertensión Arterial (HTA)</li>
+                            <li class="text-lg">46 pacientes con Diabetes (DBT)</li>
+                            <li class="text-lg">68 pacientes con ambas patologías (HTA + DBT)</li>
+                            <li class="text-lg">8 casos nuevos a confirmar</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <p class="text-lg mb-2">Se realizaron las siguientes actividades:</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-calendar-check text-green-500 mr-2"></i>
+                                <span>Asignación de turnos médicos</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-flask text-green-500 mr-2"></i>
+                                <span>Gestión de estudios de laboratorio</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-hospital text-green-500 mr-2"></i>
+                                <span>Trabajo interinstitucional con Hospital Ramón Carrillo</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-user-md text-green-500 mr-2"></i>
+                                <span>Derivaciones a especialistas</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Columna derecha: Gráfico -->
+                <div class="w-1/2">
+                    <div class="chart-container border rounded-lg p-4 shadow-lg">
+                        <canvas id="patologiasChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center text-gray-600 text-sm">
+                        <p><strong>Gráfico 1:</strong> Distribución de pacientes según patología crónica</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Nota al pie -->
+            <div class="mt-6 text-sm text-gray-500 italic">
+                <p>* El Hospital del Norte continúa su compromiso con la atención, seguimiento y control de pacientes con patologías crónicas a través de un sistema de captación y derivación eficiente.</p>
+            </div>
+            
+            <div class="slide-number">2/8</div>
+        </div>
+        
+        <!-- Barra inferior -->
+        <div class="footer-bar w-full"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('patologiasChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['HTA', 'DBT', 'HTA + DBT', 'A confirmar'],
+                    datasets: [{
+                        data: [120, 46, 68, 8],
+                        backgroundColor: [
+                            '#0284c7', // Azul para HTA
+                            '#10b981', // Verde para DBT
+                            '#6366f1', // Índigo para HTA+DBT
+                            '#f59e0b'  // Amarillo para casos a confirmar
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Distribución de Pacientes por Patología',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw;
+                                    const total = context.dataset.data.reduce((acc, data) => acc + data, 0);
+                                    const percentage = Math.round((value / total) * 100);
+                                    return `${label}: ${value} pacientes (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    maintainAspectRatio: false
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
